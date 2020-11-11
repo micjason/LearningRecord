@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>什么是原型链 | 漫数窗花，青袍染晨霜</title>
+    <meta name="generator" content="VuePress 1.7.1">
+    <link res="icon" href="./public/favicon.ico">
+    <meta name="description" content="Just playing around">
+    
+    <link rel="preload" href="/LearningRecord/assets/css/1.styles.64c025f6.css" as="style"><link rel="preload" href="/LearningRecord/assets/js/app.bb89e912.js" as="script"><link rel="preload" href="/LearningRecord/assets/js/2.23800012.js" as="script"><link rel="preload" href="/LearningRecord/assets/js/13.ff5ce2a2.js" as="script"><link rel="prefetch" href="/LearningRecord/assets/js/10.11122e83.js"><link rel="prefetch" href="/LearningRecord/assets/js/11.77066534.js"><link rel="prefetch" href="/LearningRecord/assets/js/12.0b60510d.js"><link rel="prefetch" href="/LearningRecord/assets/js/14.ec03ac06.js"><link rel="prefetch" href="/LearningRecord/assets/js/15.2d3b7982.js"><link rel="prefetch" href="/LearningRecord/assets/js/16.40692737.js"><link rel="prefetch" href="/LearningRecord/assets/js/3.7faaac93.js"><link rel="prefetch" href="/LearningRecord/assets/js/4.6b4ff2dd.js"><link rel="prefetch" href="/LearningRecord/assets/js/5.214e33e3.js"><link rel="prefetch" href="/LearningRecord/assets/js/6.d81ec996.js"><link rel="prefetch" href="/LearningRecord/assets/js/7.ba1960d3.js"><link rel="prefetch" href="/LearningRecord/assets/js/8.02dce62c.js"><link rel="prefetch" href="/LearningRecord/assets/js/9.b1ad2f82.js">
+    <link rel="stylesheet" href="/LearningRecord/assets/css/1.styles.64c025f6.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><div class="content__default"><h3 id="什么是原型链"><a href="#什么是原型链" class="header-anchor">#</a> 什么是原型链</h3> <p>每个对象都可以有一个原型_proto_，这个原型还可以有它自己的原型，以此类推，形成一个原型链。查找特定属性的时候，我们先去这个对象里去找，如果没有的话就去它的原型对象里面去，如果还是没有的话再去向原型对象的原型对象里去寻找...... 这个操作被委托在整个原型链上，这个就是我们说的原型链了。</p> <h3 id="什么是原型继承"><a href="#什么是原型继承" class="header-anchor">#</a> 什么是原型继承</h3> <p>每一个构造函数都有prototype原型属性，通过构造函数创建出来的对象都继承自该原型属性。所以可以通过更改构造函数的原型属性来实现继承。</p> <h4 id="怎么实现"><a href="#怎么实现" class="header-anchor">#</a> 怎么实现</h4> <ol><li>将一个构造函数的prototype属性直接指向一个构造函数的实力，然后再改变它自己的constuctor指向自己，</li> <li>在构造函数里面使用call方法，改变this的指向，指向父构造函数，缺点：</li></ol> <ul><li>只能继承父对象的实例属性和方法，</li> <li>不能继承父对象原型属性和方法</li> <li>无法实现函数复用，每个子对象都有父对象实例的副本，性能欠优</li></ul> <ol start="3"><li>两种同时使用</li></ol></div></div><div class="global-ui"></div></div>
+    <script src="/LearningRecord/assets/js/app.bb89e912.js" defer></script><script src="/LearningRecord/assets/js/2.23800012.js" defer></script><script src="/LearningRecord/assets/js/13.ff5ce2a2.js" defer></script>
+  </body>
+</html>

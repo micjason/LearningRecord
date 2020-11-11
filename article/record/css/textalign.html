@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>关于text-align:justify的使用心得 | 漫数窗花，青袍染晨霜</title>
+    <meta name="generator" content="VuePress 1.7.1">
+    <link res="icon" href="./public/favicon.ico">
+    <meta name="description" content="Just playing around">
+    
+    <link rel="preload" href="/LearningRecord/assets/css/1.styles.64c025f6.css" as="style"><link rel="preload" href="/LearningRecord/assets/js/app.bb89e912.js" as="script"><link rel="preload" href="/LearningRecord/assets/js/2.23800012.js" as="script"><link rel="preload" href="/LearningRecord/assets/js/9.b1ad2f82.js" as="script"><link rel="prefetch" href="/LearningRecord/assets/js/10.11122e83.js"><link rel="prefetch" href="/LearningRecord/assets/js/11.77066534.js"><link rel="prefetch" href="/LearningRecord/assets/js/12.0b60510d.js"><link rel="prefetch" href="/LearningRecord/assets/js/13.ff5ce2a2.js"><link rel="prefetch" href="/LearningRecord/assets/js/14.ec03ac06.js"><link rel="prefetch" href="/LearningRecord/assets/js/15.2d3b7982.js"><link rel="prefetch" href="/LearningRecord/assets/js/16.40692737.js"><link rel="prefetch" href="/LearningRecord/assets/js/3.7faaac93.js"><link rel="prefetch" href="/LearningRecord/assets/js/4.6b4ff2dd.js"><link rel="prefetch" href="/LearningRecord/assets/js/5.214e33e3.js"><link rel="prefetch" href="/LearningRecord/assets/js/6.d81ec996.js"><link rel="prefetch" href="/LearningRecord/assets/js/7.ba1960d3.js"><link rel="prefetch" href="/LearningRecord/assets/js/8.02dce62c.js">
+    <link rel="stylesheet" href="/LearningRecord/assets/css/1.styles.64c025f6.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><div class="content__default"><h3 id="关于text-align-justify的使用心得"><a href="#关于text-align-justify的使用心得" class="header-anchor">#</a> 关于text-align:justify的使用心得</h3> <p>有时候我们会碰到下面这样的对齐方式
+<img src="https://upload-images.jianshu.io/upload_images/12518470-061e91035d4ffdb4.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="demo.jpg">
+一般限定宽度后设置text-align:justify，发现无效，这是因为text-align:justify；只对最后一行之前的行生效，当文本只有一行的时候，既是第一行，也是最后一行；所以只有一行的时候需要特殊处理。</p> <p>这里有两种方式：</p> <ol><li>设置text-align-last:justify；不过text-align-last不是所有浏览器支持。例如safari。</li> <li>加一个伪类</li></ol> <div class="language- extra-class"><pre class="language-text"><code>XXX:after {
+        content: &quot;&quot;;
+        width: 100%;
+        height: 0;
+        margin: 0;
+        display: inline-block;
+        overflow: hidden;
+      }
+</code></pre></div><p>再来说下，多行的时候，既然文字从左到右已经排满了，那设置text-align为left　center　right　justify有什么区别呢，看看这张图片你就懂了,上面是设置了justify，下面是没有样式的情况。
+<img src="https://upload-images.jianshu.io/upload_images/12518470-45277eb0c7828e56.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="demo2.jpg"></p></div></div><div class="global-ui"></div></div>
+    <script src="/LearningRecord/assets/js/app.bb89e912.js" defer></script><script src="/LearningRecord/assets/js/2.23800012.js" defer></script><script src="/LearningRecord/assets/js/9.b1ad2f82.js" defer></script>
+  </body>
+</html>

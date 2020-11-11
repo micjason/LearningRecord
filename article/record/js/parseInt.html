@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>parseInt()的基本用法如下(转自菜鸟教程)： | 漫数窗花，青袍染晨霜</title>
+    <meta name="generator" content="VuePress 1.7.1">
+    <link res="icon" href="./public/favicon.ico">
+    <meta name="description" content="Just playing around">
+    
+    <link rel="preload" href="/LearningRecord/assets/css/1.styles.64c025f6.css" as="style"><link rel="preload" href="/LearningRecord/assets/js/app.bb89e912.js" as="script"><link rel="preload" href="/LearningRecord/assets/js/2.23800012.js" as="script"><link rel="preload" href="/LearningRecord/assets/js/12.0b60510d.js" as="script"><link rel="prefetch" href="/LearningRecord/assets/js/10.11122e83.js"><link rel="prefetch" href="/LearningRecord/assets/js/11.77066534.js"><link rel="prefetch" href="/LearningRecord/assets/js/13.ff5ce2a2.js"><link rel="prefetch" href="/LearningRecord/assets/js/14.ec03ac06.js"><link rel="prefetch" href="/LearningRecord/assets/js/15.2d3b7982.js"><link rel="prefetch" href="/LearningRecord/assets/js/16.40692737.js"><link rel="prefetch" href="/LearningRecord/assets/js/3.7faaac93.js"><link rel="prefetch" href="/LearningRecord/assets/js/4.6b4ff2dd.js"><link rel="prefetch" href="/LearningRecord/assets/js/5.214e33e3.js"><link rel="prefetch" href="/LearningRecord/assets/js/6.d81ec996.js"><link rel="prefetch" href="/LearningRecord/assets/js/7.ba1960d3.js"><link rel="prefetch" href="/LearningRecord/assets/js/8.02dce62c.js"><link rel="prefetch" href="/LearningRecord/assets/js/9.b1ad2f82.js">
+    <link rel="stylesheet" href="/LearningRecord/assets/css/1.styles.64c025f6.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><div class="content__default"><h3 id="parseint-的基本用法如下-转自菜鸟教程"><a href="#parseint-的基本用法如下-转自菜鸟教程" class="header-anchor">#</a> parseInt()的基本用法如下(转自菜鸟教程)：</h3> <div class="language- extra-class"><pre class="language-text"><code> parseInt() 函数可解析一个字符串，并返回一个整数。
+
+当参数 radix 的值为 0，或没有设置该参数时，parseInt() 会根据 string 来判断数字的基数。
+
+当忽略参数 radix , JavaScript 默认数字的基数如下:
+
+如果 string 以 &quot;0x&quot; 开头，parseInt() 会把 string 的其余部分解析为十六进制的整数。
+如果 string 以 0 开头，那么 ECMAScript v3 允许 parseInt() 的一个实现把其后的字符解析为八进制或十六进制的数字。
+如果 string 以 1 ~ 9 的数字开头，parseInt() 将把它解析为十进制的整数。
+语法
+parseInt(string, radix)
+
+参数	描述
+string	必需。要被解析的字符串。
+radix	可选。表示要解析的数字的基数。该值介于 2 ~ 36 之间。
+</code></pre></div><p>#####需要补充说明的是：</p> <ol><li>parseInt()只返回能解析的部分，（那么要转换为2进制的时候，只能有01，我还傻傻的想parseInt(5,2)==101呢）</li></ol> <div class="language- extra-class"><pre class="language-text"><code>parseInt('123abc')   // 123
+parseInt('123abc',16)  // 1194684  指定16进制，abc分别表示11 12 13
+</code></pre></div><ol start="2"><li>如果字符串的第一个字符不能被转换为数字，那么 parseInt() 会返回 NaN。</li></ol> <div class="language- extra-class"><pre class="language-text"><code>parseInt('711111',2)  //  NAN
+parseInt('11711',2)   //  3
+</code></pre></div><h3 id="的用法"><a href="#的用法" class="header-anchor">#</a> &amp;的用法</h3> <p>在js里，一个&amp;表示运算符按位与，就是把两个二进制数按每一位比较，两个都为1则为1，否则为0（也类似与且，都真才为真）
+比如 1111&amp;0110 = 0110。（<strong>从第二个1第一次相等，第二个1第二次相等，后面再无相等的，返回结果则为0110</strong>）
+如果不是二进制数比较，需要先把这两个数转换为二进制，比如</p> <div class="language- extra-class"><pre class="language-text"><code>15&amp;6 = 1111&amp;0110 = 0110 = 6
+</code></pre></div></div></div><div class="global-ui"></div></div>
+    <script src="/LearningRecord/assets/js/app.bb89e912.js" defer></script><script src="/LearningRecord/assets/js/2.23800012.js" defer></script><script src="/LearningRecord/assets/js/12.0b60510d.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>漫数窗花，青袍染晨霜</title>
+    <meta name="generator" content="VuePress 1.7.1">
+    <link res="icon" href="./public/favicon.ico">
+    <meta name="description" content="Just playing around">
+    
+    <link rel="preload" href="/LearningRecord/assets/css/1.styles.64c025f6.css" as="style"><link rel="preload" href="/LearningRecord/assets/js/app.bb89e912.js" as="script"><link rel="preload" href="/LearningRecord/assets/js/2.23800012.js" as="script"><link rel="preload" href="/LearningRecord/assets/js/11.77066534.js" as="script"><link rel="prefetch" href="/LearningRecord/assets/js/10.11122e83.js"><link rel="prefetch" href="/LearningRecord/assets/js/12.0b60510d.js"><link rel="prefetch" href="/LearningRecord/assets/js/13.ff5ce2a2.js"><link rel="prefetch" href="/LearningRecord/assets/js/14.ec03ac06.js"><link rel="prefetch" href="/LearningRecord/assets/js/15.2d3b7982.js"><link rel="prefetch" href="/LearningRecord/assets/js/16.40692737.js"><link rel="prefetch" href="/LearningRecord/assets/js/3.7faaac93.js"><link rel="prefetch" href="/LearningRecord/assets/js/4.6b4ff2dd.js"><link rel="prefetch" href="/LearningRecord/assets/js/5.214e33e3.js"><link rel="prefetch" href="/LearningRecord/assets/js/6.d81ec996.js"><link rel="prefetch" href="/LearningRecord/assets/js/7.ba1960d3.js"><link rel="prefetch" href="/LearningRecord/assets/js/8.02dce62c.js"><link rel="prefetch" href="/LearningRecord/assets/js/9.b1ad2f82.js">
+    <link rel="stylesheet" href="/LearningRecord/assets/css/1.styles.64c025f6.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><div class="content__default"><p></p><div class="table-of-contents"><ul><li><a href="#题目如下">题目如下：</a></li></ul></div><p></p> <h3 id="题目如下"><a href="#题目如下" class="header-anchor">#</a> 题目如下：</h3> <div class="language- extra-class"><pre class="language-text"><code>let a = {}
+let b = { key:'b' }
+let c = { key:'c' }
+a[b]=123
+a[c]=456
+console.log(a[b])
+</code></pre></div><h4 id="前置知识-js对象属性通过点-和方括号-的不同之处"><a href="#前置知识-js对象属性通过点-和方括号-的不同之处" class="header-anchor">#</a> 前置知识：js对象属性通过点(.)和方括号([])的不同之处:</h4> <ol><li>点操作符: 静态的。右侧必须是一个以属性名称命名的简单标识符。属性名用一个标识符来表示。标识符必须直接出现再js程序中。</li> <li>中括号操作符: 动态的。<strong>方括号里必须是一个计算结果为字符串的表达式</strong>，属性名通过字符串表示。字符串是js的数据类型。</li> <li><code>[]</code>可以用变量作为属性名,<code>var a = 'name'; Obj[a]</code></li> <li><code>[]</code>中括号可以用数字作为属性名,<code>Obj[1]</code></li> <li><code>[]</code>可以动态访问属性名，可以在程序运行时创建和修改属性,<div class="language- extra-class"><pre class="language-text"><code>var Obj = {};
+var arr = ['上海','广州','无锡'];
+for(var i=0; i&lt;arr.length; i++){
+    Obj['address'+i]=arr[i]
+}
+console.log(Obj)
+</code></pre></div></li> <li>如果属性名中包含会导致语法错误的字符，或者属性名是关键字或者保留字，也可以使用[]表示法。<code>[hello world]</code></li></ol> <h4 id="所以在执行a-b-123和a-c-456的时候-由于b和c都是对象-要先转换成字符串"><a href="#所以在执行a-b-123和a-c-456的时候-由于b和c都是对象-要先转换成字符串" class="header-anchor">#</a> 所以在执行<code>a[b]=123</code>和<code>a[c]=456</code>的时候，由于b和c都是对象，要先转换成字符串，</h4> <div class="language- extra-class"><pre class="language-text"><code>let b = { key:'b' }
+b.toString() = &quot;[object, Object]&quot;
+let c = { key:'c' }
+c.toString() = &quot;[object, Object]&quot;
+</code></pre></div><p>所以<code>console.log(a['[object Object]']) // 456</code></p></div></div><div class="global-ui"></div></div>
+    <script src="/LearningRecord/assets/js/app.bb89e912.js" defer></script><script src="/LearningRecord/assets/js/2.23800012.js" defer></script><script src="/LearningRecord/assets/js/11.77066534.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>移动端适配方案 | 漫数窗花，青袍染晨霜</title>
+    <meta name="generator" content="VuePress 1.7.1">
+    <link res="icon" href="./public/favicon.ico">
+    <meta name="description" content="Just playing around">
+    
+    <link rel="preload" href="/LearningRecord/assets/css/1.styles.64c025f6.css" as="style"><link rel="preload" href="/LearningRecord/assets/js/app.bb89e912.js" as="script"><link rel="preload" href="/LearningRecord/assets/js/2.23800012.js" as="script"><link rel="preload" href="/LearningRecord/assets/js/8.02dce62c.js" as="script"><link rel="prefetch" href="/LearningRecord/assets/js/10.11122e83.js"><link rel="prefetch" href="/LearningRecord/assets/js/11.77066534.js"><link rel="prefetch" href="/LearningRecord/assets/js/12.0b60510d.js"><link rel="prefetch" href="/LearningRecord/assets/js/13.ff5ce2a2.js"><link rel="prefetch" href="/LearningRecord/assets/js/14.ec03ac06.js"><link rel="prefetch" href="/LearningRecord/assets/js/15.2d3b7982.js"><link rel="prefetch" href="/LearningRecord/assets/js/16.40692737.js"><link rel="prefetch" href="/LearningRecord/assets/js/3.7faaac93.js"><link rel="prefetch" href="/LearningRecord/assets/js/4.6b4ff2dd.js"><link rel="prefetch" href="/LearningRecord/assets/js/5.214e33e3.js"><link rel="prefetch" href="/LearningRecord/assets/js/6.d81ec996.js"><link rel="prefetch" href="/LearningRecord/assets/js/7.ba1960d3.js"><link rel="prefetch" href="/LearningRecord/assets/js/9.b1ad2f82.js">
+    <link rel="stylesheet" href="/LearningRecord/assets/css/1.styles.64c025f6.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><div class="content__default"><h2 id="移动端适配方案"><a href="#移动端适配方案" class="header-anchor">#</a> 移动端适配方案</h2> <p>分析lib-flexible的源码后，发现它主要做了以下几件事：</p> <div class="language- extra-class"><pre class="language-text"><code>window.onload = function () {
+      var dpr = 0
+      var scale = 0
+
+      if (!dpr &amp;&amp; !scale) {
+        var isAndroid = window.navigator.appVersion.match(/android/gi)
+        var isIPhone = window.navigator.appVersion.match(/iphone/gi)
+        var devicePixelRatio = window.devicePixelRatio
+        if (isIPhone) {
+          // iOS下，对于2和3的屏，用2倍的方案，其余的用1倍方案
+          if (devicePixelRatio &gt;= 3 &amp;&amp; (!dpr || dpr &gt;= 3)) {
+            dpr = 3
+          } else if (devicePixelRatio &gt;= 2 &amp;&amp; (!dpr || dpr &gt;= 2)) {
+            dpr = 2
+          } else {
+            dpr = 1
+          }
+        } else {
+          // 其他设备下，仍旧使用1倍的方案
+          dpr = 1
+        }
+        scale = 1 / dpr
+      }
+
+      var metaEl = document.createElement('meta')
+      metaEl.setAttribute('name', 'viewport')
+      metaEl.setAttribute(
+        'content',
+        'initial-scale=' +
+          scale +
+          ',maximum-scale=' +
+          scale +
+          ',minimum-scale=' +
+          scale +
+          ',user-scalable=no'
+      )
+      if (document.documentElement.firstElementChild) {
+        document.documentElement.firstElementChild.appendChild(metaEl)
+      } else {
+        var wrap = document.createElement('div')
+        wrap.appendChild(metaEl)
+        document.write(wrap.innerHTML)
+      }
+
+      var rem = document.documentElement.clientWidth / 10
+
+      document.documentElement.style.fontSize = rem + 'px'
+      document.body.style.fontSize = 12 * dpr + 'px'
+    }
+</code></pre></div><ol><li>动态设置dpr，只考虑了ios设备，dpr = 物理像素（分辨率） / 独立像素（通过window.screen.width获取，实际上就是屏幕的宽度），根据计算，安卓dpr比较混乱，则采取不缩放</li> <li>动态设置meta标签和html，body的字体大小</li></ol> <p>根据屏幕宽度/10设置比例，在所有屏幕下10rem都表示满屏，这样设置会导致继承的其他元素字体很大，所有又设置了body下的字体</p> <h3 id="q-为什么要进行缩放"><a href="#q-为什么要进行缩放" class="header-anchor">#</a> Q:为什么要进行缩放？</h3> <p>A: 如果设置initial-scale=1.0...也是可以做到同样的效果，但是这时候比如在iphone4下，1px的元素是采用2<em>2的物理像素来渲染，如果想做到1</em>1的物理像素去渲染，需要设置css下1px等于1物理像素，等于把画布放大了2倍，然后设置initial-scale=0.5使画布等于窗口大小</p> <p>至于设置data-dpr，然后设置不同dpr下的字体大小，在源码里面没看到相关设置</p> <p>这样设置完毕之后实际操作起来会比较麻烦，因为满屏是10rem，这设计稿上量出px单位后需要转换了rem。如果设计稿是750px宽，可以分成75份，这样每10px=1rem，换算比较方便</p> <h3 id="如果使用工具构建"><a href="#如果使用工具构建" class="header-anchor">#</a> 如果使用工具构建</h3> <ol><li>需要安装两个插件
+lib-flexible和postcss-pxtorem</li> <li>在main.js里面引入lib-flexible，新建postcss.config.js（根目录）</li></ol> <div class="language- extra-class"><pre class="language-text"><code>  plugins: {
+    autoprefixer: {},
+    'postcss-pxtorem': {
+      //设计稿对应的rem尺寸，此时是iPhone6对应的75px
+      rootValue: 75,
+      //所有元素的px自动转化成rem
+      propList: ['*'],
+    },
+  },
+}
+</code></pre></div><p>主要参考文档：
+<a href="https://segmentfault.com/a/1190000009017413?_ea=1801249" target="_blank" rel="noopener noreferrer">https://segmentfault.com/a/1190000009017413?_ea=1801249<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> <a href="https://www.sohu.com/a/318395528_100004247" target="_blank" rel="noopener noreferrer">https://www.sohu.com/a/318395528_100004247<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p></div></div><div class="global-ui"></div></div>
+    <script src="/LearningRecord/assets/js/app.bb89e912.js" defer></script><script src="/LearningRecord/assets/js/2.23800012.js" defer></script><script src="/LearningRecord/assets/js/8.02dce62c.js" defer></script>
+  </body>
+</html>
